@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="dark" data-dark-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0d1117" />
+    <title>Eugene Savin · Quenary</title>
+    <meta
+      name="description"
+      content="Frontend developer specializing in Angular, with additional experience in Python. Open-source and self-hosted applications."
+    />
+    <link rel="icon" href="public/favicon.png" type="image/png" sizes="48x48" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@primer/css@20.8.3/dist/primer.min.css"
+    />
+    <style>
+      :root {
+        --bg: var(--color-canvas-default, #0d1117);
+        --fg: var(--color-fg-default, #e6edf3);
+        --muted: var(--color-fg-muted, #9198a1);
+        --border: var(--color-border-default, #3d444d);
+        --accent: var(--color-accent-fg, #4493f8);
+        --btn-bg: var(--color-btn-bg, #212830);
+        --btn-hover: var(--color-btn-hover-bg, #2a313c);
+        --sidebar: 296px;
+      }
+
+      html,
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        color-scheme: dark;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .page {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 24px 32px 80px;
+      }
+
+      .layout {
+        display: flex;
+        gap: 24px;
+        align-items: flex-start;
+      }
+
+      .sidebar {
+        width: var(--sidebar);
+        flex-shrink: 0;
+      }
+
+      .avatar {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid var(--border);
+        background: #000;
+        display: block;
+      }
+
+      .name {
+        margin: 16px 0 0;
+        font-size: 24px;
+        line-height: 1.25;
+        font-weight: 600;
+      }
+
+      .login {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 24px;
+        color: var(--muted);
+      }
+
+      .btn {
+        margin-top: 16px;
+      }
+
+      .bio {
+        margin: 16px 0 0;
+      }
+
+      .followers {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: 16px;
+        color: var(--muted);
+      }
+
+      .followers a {
+        text-decoration: none;
+      }
+
+      .followers a:hover {
+        color: var(--accent);
+      }
+
+      .followers strong {
+        color: var(--fg);
+        font-weight: 600;
+      }
+
+      .meta {
+        list-style: none;
+        margin: 16px 0 0;
+        padding: 0;
+        color: var(--muted);
+      }
+
+      .meta li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 4px;
+      }
+
+      .octicon {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+        background-color: currentColor;
+        -webkit-mask: var(--octicon) center / contain no-repeat;
+        mask: var(--octicon) center / contain no-repeat;
+      }
+
+      .octicon-people {
+        --octicon: url("public/icons/people-16.svg");
+      }
+
+      .octicon-location {
+        --octicon: url("public/icons/location-16.svg");
+      }
+
+      .octicon-mail {
+        --octicon: url("public/icons/mail-16.svg");
+      }
+
+      .octicon-mark-github {
+        --octicon: url("public/icons/mark-github-16.svg");
+      }
+
+      .octicon-link {
+        --octicon: url("public/icons/link-16.svg");
+      }
+
+      .octicon-repo {
+        --octicon: url("public/icons/repo-16.svg");
+      }
+
+      .octicon-star-fill {
+        --octicon: url("public/icons/star-fill-16.svg");
+      }
+
+      .octicon-device-mobile {
+        --octicon: url("public/icons/device-mobile-16.svg");
+      }
+
+      .octicon-repo-forked {
+        --octicon: url("public/icons/repo-forked-16.svg");
+      }
+
+      .meta a {
+        text-decoration: none;
+      }
+
+      .meta a:hover {
+        color: var(--accent);
+        text-decoration: underline;
+      }
+
+      .content {
+        flex: 1;
+        min-width: 0;
+        padding-top: 4px;
+      }
+
+      .section-title {
+        margin: 0 0 8px;
+        font-size: 16px;
+        font-weight: 400;
+      }
+
+      .section + .section {
+        margin-top: 24px;
+      }
+
+      .repos {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .repo {
+        display: flex;
+        flex-direction: column;
+        min-height: 148px;
+        padding: 16px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .repo:hover {
+        text-decoration: none;
+      }
+
+      .repo-name {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+      }
+
+      .repo-name .octicon {
+        background-color: var(--muted);
+      }
+
+      .repo-name .title {
+        color: var(--accent);
+      }
+
+      .repo:hover .title {
+        text-decoration: underline;
+      }
+
+      .repo-desc {
+        flex: 1;
+        margin: 8px 0 16px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .repo-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 16px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .repo-meta span {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .repo-meta .octicon {
+        background-color: currentColor;
+      }
+
+      .lang-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+
+      @media (max-width: 768px) {
+        .page {
+          padding: 16px 16px 48px;
+        }
+
+        .layout {
+          flex-direction: column;
+        }
+
+        .sidebar {
+          width: 100%;
+        }
+
+        .profile {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+        }
+
+        .avatar-wrap {
+          width: 72px;
+          flex-shrink: 0;
+        }
+
+        .name {
+          margin-top: 0;
+        }
+
+        .repos {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="layout">
+        <aside class="sidebar">
+          <div class="profile">
+            <div class="avatar-wrap">
+              <img
+                class="avatar"
+                id="avatar"
+                src="https://github.com/Quenary.png"
+                width="296"
+                height="296"
+                alt="Quenary"
+              />
+            </div>
+            <div>
+              <h1 class="name" id="name">Eugene Savin</h1>
+              <p class="login" id="login">Quenary</p>
+            </div>
+          </div>
+
+          <a class="btn btn-block mt-3" href="https://github.com/Quenary" rel="me">GitHub profile</a>
+
+          <p class="bio" id="bio">
+            Frontend developer specializing in Angular, with additional
+            experience in Python. Passionate about building open-source and
+            self-hosted applications.
+          </p>
+
+          <div class="followers">
+            <span class="octicon octicon-people" aria-hidden="true"></span>
+            <a href="https://github.com/Quenary?tab=followers">
+              <strong id="followers">18</strong> followers
+            </a>
+          </div>
+
+          <ul class="meta">
+            <li id="location-row">
+              <span class="octicon octicon-location" aria-hidden="true"></span>
+              <span id="location">Saint-Petersburg</span>
+            </li>
+            <li id="email-row">
+              <span class="octicon octicon-mail" aria-hidden="true"></span>
+              <a id="email" href="mailto:evgeny.savin.ad@gmail.com">evgeny.savin.ad@gmail.com</a>
+            </li>
+            <li>
+              <span class="octicon octicon-mark-github" aria-hidden="true"></span>
+              <a href="https://github.com/Quenary" rel="me">github.com/Quenary</a>
+            </li>
+            <li id="blog-row" hidden>
+              <span class="octicon octicon-link" aria-hidden="true"></span>
+              <a id="blog" href="#"></a>
+            </li>
+          </ul>
+        </aside>
+
+        <main class="content">
+          <section class="section">
+            <h2 class="section-title">Repositories</h2>
+            <div class="repos" id="repos">
+            <a class="Box repo" href="https://github.com/Quenary/tugtainer">
+              <div class="repo-name">
+                <span class="octicon octicon-repo" aria-hidden="true"></span>
+                <span class="title">tugtainer</span>
+                <span class="Label Label--secondary">Public</span>
+              </div>
+              <p class="repo-desc">
+                An application for automated Docker container updates with a web UI
+              </p>
+              <div class="repo-meta">
+                <span>
+                  <span class="lang-dot" style="background: #3572a5"></span>
+                  Python
+                </span>
+                <span>
+                  <span class="octicon octicon-star-fill" aria-hidden="true"></span>
+                  1.5k
+                </span>
+                <span>
+                  <span class="octicon octicon-repo-forked" aria-hidden="true"></span>
+                  51
+                </span>
+              </div>
+            </a>
+
+            <a class="Box repo" href="https://github.com/Quenary/cardholder_pwa">
+              <div class="repo-name">
+                <span class="octicon octicon-repo" aria-hidden="true"></span>
+                <span class="title">cardholder_pwa</span>
+                <span class="Label Label--secondary">Public</span>
+              </div>
+              <p class="repo-desc">
+                Cardholder PWA is a self-hosted app for your loyalty and discount cards
+              </p>
+              <div class="repo-meta">
+                <span>
+                  <span class="lang-dot" style="background: #3178c6"></span>
+                  TypeScript
+                </span>
+                <span>
+                  <span class="octicon octicon-star-fill" aria-hidden="true"></span>
+                  56
+                </span>
+                <span>
+                  <span class="octicon octicon-repo-forked" aria-hidden="true"></span>
+                  1
+                </span>
+              </div>
+            </a>
+          </div>
+          </section>
+
+          <section class="section">
+            <h2 class="section-title">Apps</h2>
+            <div class="repos">
+              <a
+                class="Box repo"
+                href="https://play.google.com/store/apps/details?id=com.ekivokium.game"
+              >
+                <div class="repo-name">
+                  <span class="octicon octicon-device-mobile" aria-hidden="true"></span>
+                  <span class="title">Ekivoki</span>
+                  <span class="Label Label--secondary">Google Play</span>
+                </div>
+                <p class="repo-desc">
+                  Party board game in the spirit of Charades and Alias. Explain
+                  words with speech, gestures, drawing, and special ekivoki tasks.
+                </p>
+                <div class="repo-meta">
+                  <span>Android</span>
+                  <span>10K+ downloads</span>
+                </div>
+              </a>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      const USER = "Quenary";
+      const PINNED = ["tugtainer", "cardholder_pwa"];
+      const LANG_COLORS = {
+        Python: "#3572A5",
+        TypeScript: "#3178c6",
+        JavaScript: "#f1e05a",
+        HTML: "#e34c26",
+        CSS: "#563d7c",
+        Go: "#00ADD8",
+        Rust: "#dea584",
+        Shell: "#89e051",
+      };
+
+      const ICON = (name) =>
+        `<span class="octicon octicon-${name}" aria-hidden="true"></span>`;
+
+      function formatCount(n) {
+        if (n >= 1000) {
+          const value = n / 1000;
+          return (Number.isInteger(value) ? value : value.toFixed(1)) + "k";
+        }
+        return String(n);
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function renderRepo(repo) {
+        const lang = repo.language || "";
+        const color = LANG_COLORS[lang] || "#8b949e";
+        const langHtml = lang
+          ? `<span><span class="lang-dot" style="background:${color}"></span>${escapeHtml(lang)}</span>`
+          : "";
+
+        return `
+          <a class="Box repo" href="${escapeHtml(repo.html_url)}">
+            <div class="repo-name">
+              ${ICON("repo")}
+              <span class="title">${escapeHtml(repo.name)}</span>
+              <span class="Label Label--secondary">${repo.private ? "Private" : "Public"}</span>
+            </div>
+            <p class="repo-desc">${escapeHtml(repo.description || "")}</p>
+            <div class="repo-meta">
+              ${langHtml}
+              <span>${ICON("star-fill")}${formatCount(repo.stargazers_count || 0)}</span>
+              <span>${ICON("repo-forked")}${formatCount(repo.forks_count || 0)}</span>
+            </div>
+          </a>
+        `;
+      }
+
+      async function loadProfile() {
+        const response = await fetch(`https://api.github.com/users/${USER}`);
+        if (!response.ok) return;
+        const user = await response.json();
+
+        if (user.avatar_url) document.getElementById("avatar").src = user.avatar_url;
+        if (user.name) document.getElementById("name").textContent = user.name;
+        if (user.login) document.getElementById("login").textContent = user.login;
+        if (user.bio) document.getElementById("bio").textContent = user.bio;
+        if (user.email) {
+          const email = document.getElementById("email");
+          email.href = `mailto:${user.email}`;
+          email.textContent = user.email;
+        }
+
+        if (user.location) {
+          document.getElementById("location").textContent = user.location;
+        } else {
+          document.getElementById("location-row").hidden = true;
+        }
+
+        if (user.blog) {
+          const href = user.blog.startsWith("http") ? user.blog : `https://${user.blog}`;
+          const blog = document.getElementById("blog");
+          blog.href = href;
+          blog.textContent = user.blog.replace(/^https?:\/\//, "");
+          document.getElementById("blog-row").hidden = false;
+        }
+
+        if (typeof user.followers === "number") {
+          document.getElementById("followers").textContent = formatCount(user.followers);
+        }
+      }
+
+      async function loadRepos() {
+        const results = await Promise.all(
+          PINNED.map(async (name) => {
+            const response = await fetch(`https://api.github.com/repos/${USER}/${name}`);
+            if (!response.ok) return null;
+            return response.json();
+          })
+        );
+
+        const repos = results.filter(Boolean);
+        if (!repos.length) return;
+        document.getElementById("repos").innerHTML = repos.map(renderRepo).join("");
+      }
+
+      loadProfile().catch(() => {});
+      loadRepos().catch(() => {});
+    </script>
+  </body>
+</html>
